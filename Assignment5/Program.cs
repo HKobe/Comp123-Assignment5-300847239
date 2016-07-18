@@ -20,7 +20,7 @@ namespace Assignment5
     {
         static void Main(string[] args)
         {     
-            FileStream fs1 = new FileStream("GradingFile.tXt", FileMode.OpenOrCreate, FileAccess.Write);
+            FileStream fs1 = new FileStream("GradingFile.txt", FileMode.OpenOrCreate, FileAccess.Write);
             using (TextWriter writer = new StreamWriter(fs1))
             {
                 writer.Write("Kobeissi, Hassan: 300847239 Software Engineering, A+");
@@ -67,11 +67,12 @@ static public void ShowMenu()
                             ///If user inputs incorrect text name, display error message and redirect to menu.
                             if (File.Exists("GradingFile.txt"))
                             {
+                                Console.WriteLine("File Exists!");
                                 FileStream fs1 = new FileStream("GradingFile.txt", FileMode.OpenOrCreate, FileAccess.Read);
                                 using (var reader = new StreamReader(fs1))
                                 {
                                     var alltext = reader.ReadToEnd();
-                                    reader.("Kobeissi, Hassan: 300847239 Software Engineering, A+");
+                                    //reader.("Kobeissi, Hassan: 300847239 Software Engineering, A+");
 
                                 }
                                 ///Displays Time file was created
