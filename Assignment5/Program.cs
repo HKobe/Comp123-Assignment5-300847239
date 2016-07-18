@@ -38,7 +38,7 @@ namespace Assignment5
         {
           
         }
-#region ShowMenu()
+      #region ShowMenu()
 /// <summary>
 /// Displays Option Menu for user, void, no params.
 /// </summary>
@@ -46,7 +46,7 @@ namespace Assignment5
 static public void ShowMenu()
         {
             int menuchoice = 0;
-            while (menuchoice != 3)
+            while (menuchoice != 2)
             {
 
                 Console.WriteLine("~~~~~~~Grade Choices~~~~~~~~~");
@@ -60,34 +60,36 @@ static public void ShowMenu()
                 switch (menuchoice)
                 {
                     case 1:
-                        Console.Write("File to Load? ");
-                        
+                        Console.Write("Please enter a file to load >> ");
+                        string userInput = Console.ReadLine();
                         try
                         {
-                            string userInput = Console.ReadLine();
                             ///If user inputs incorrect text name, display error message and redirect to menu.
-                            if (userInput != "GradingFile.txt")
+                            if (File.Exists("GradingFile.txt"))
                             {
-                                Console.WriteLine("No Such File");
-                            }
-                            else
-                            {
-                                FileStream fs1 = new FileStream("GradingFile.tXt", FileMode.OpenOrCreate, FileAccess.Read);
+                                FileStream fs1 = new FileStream("GradingFile.txt", FileMode.OpenOrCreate, FileAccess.Read);
                                 using (var reader = new StreamReader(fs1))
                                 {
                                     var alltext = reader.ReadToEnd();
-                                    reader.Read("Kobeissi, Hassan: 300847239 Software Engineering, A+");
-                                   
+                                    reader.("Kobeissi, Hassan: 300847239 Software Engineering, A+");
+
                                 }
+                                ///Displays Time file was created
+                                Console.WriteLine("file was created " + File.GetCreationTime("GradingFile.txt"));
+                            }
+                            else
+                            {
+                                Console.WriteLine("Sorry, no such file exists.");
                             }
                         }
-                        catch
+                        catch (Exception e)
                         {
-
+                            Console.WriteLine("Error: " + e.Message);
                         }
                         
                         break;
                     case 2:
+                        Console.Write("GoodBye.");
                         break;
                     default:
                         throw new ArgumentOutOfRangeException("Unknown value");
