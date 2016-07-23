@@ -19,7 +19,9 @@ namespace Assignment5
     class Program
     {
         static void Main(string[] args)
-        {     
+        {
+            Student student = new Student();
+
             FileStream fs1 = new FileStream("GradingFile.txt", FileMode.OpenOrCreate, FileAccess.Write);
             using (TextWriter writer = new StreamWriter(fs1))
             {
@@ -28,7 +30,7 @@ namespace Assignment5
                 writer.Write("Ketchum, Ash: 300847237 Software Engineering, B+");
                 writer.Close();
             }
-            
+
             ShowMenu();
             Console.WriteLine();
 
@@ -36,15 +38,16 @@ namespace Assignment5
         }
         static public void writer()
         {
-          
+
         }
-      #region ShowMenu()
-/// <summary>
-/// Displays Option Menu for user, void, no params.
-/// </summary>
-///
-static public void ShowMenu()
+        #region ShowMenu()
+        /// <summary>
+        /// Displays Option Menu for user, void, no params.
+        /// </summary>
+        ///
+        static public void ShowMenu()
         {
+            List<Student> students = new List<Student>();
             int menuchoice = 0;
             while (menuchoice != 2)
             {
@@ -56,6 +59,7 @@ static public void ShowMenu()
                 Console.WriteLine("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 Console.Write("            Enter Choice : ");
                 menuchoice = int.Parse(Console.ReadLine());
+
 
                 switch (menuchoice)
                 {
@@ -71,23 +75,37 @@ static public void ShowMenu()
                                 FileStream fs1 = new FileStream("GradingFile.txt", FileMode.OpenOrCreate, FileAccess.Read);
                                 using (var reader = new StreamReader(fs1))
                                 {
-                                    var alltext = reader.ReadToEnd();
-                                    //reader.("Kobeissi, Hassan: 300847239 Software Engineering, A+");
+                                    string text = reader.ReadToEnd();
+                                    string[] lines = text.Split('\n');
+                                    foreach(string line in lines)
+                                    {
+                                        
+                                        Student s = new Student();
+                                        s.StudentLName = line;
+                                        // extract info from line
+                                        students.Add(s);
+                                    }
 
                                 }
                                 ///Displays Time file was created
                                 Console.WriteLine("file was created " + File.GetCreationTime("GradingFile.txt"));
+                                
+                                foreach(var student in students)
+                                {
+                                    Console.WriteLine(student.StudentLName);
+                                }
                             }
                             else
                             {
                                 Console.WriteLine("Sorry, no such file exists.");
+                                continue;
                             }
                         }
                         catch (Exception e)
                         {
                             Console.WriteLine("Error: " + e.Message);
                         }
-                        
+
                         break;
                     case 2:
                         Console.Write("GoodBye.");
